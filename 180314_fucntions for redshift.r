@@ -15,10 +15,19 @@ drv = dbDriver("PostgreSQL")
 # note that "con" will be used later in each connection to the database
 con = dbConnect(drv, dbname = "spwkdw", host = "spwk-dw.cyruu3sfzf7h.ap-northeast-2.redshift.amazonaws.com", port = 5439, user = "root", password = Sys.getenv('AWS_RDS_PW'))
 
+dbGetTable = function(text) {
+    data = dbGetQuery(con, text)
+    for(i in 1:ncol(data)) { data[,i] = iconv(data[,i], 'UTF-8', 'EUC-KR') }
+    return(data)
+}
+
 db_help = function() {
     cat('# SQL문 실행법 예시
 dbGetQuery(con, "Qeury 문")
 dbGetQuery(con, "SELECT * FROM building_pyojebu WHERE sgg_cd LIKE \"11%\"")
+
+# EUC-KR로 인코딩해서 받기
+dbGetTable("Qeury 문")
 
 # 전체 table 확인하기 ; 2가지 방법
 dbGetQuery(con, "select * from pg_catalog.pg_tables")

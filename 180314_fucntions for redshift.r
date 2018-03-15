@@ -21,6 +21,10 @@ dbGetTable = function(text) {
     return(data)
 }
 
+dbDescription = function() {
+    browseURL('https://docs.google.com/spreadsheets/d/1uztusrcpc8_5nf6icbvERVhkkZNjEkk-LXV49vM3eto/edit#gid=0', browser = getOption('browser'))
+}
+
 db_help = function() {
     cat('# SQL문 실행법 예시
 dbGetQuery(con, "Qeury 문")
@@ -37,7 +41,9 @@ dbGetQuery(con, "select * from information_schema.tables")
 dbExistsTable(con, "building_floor") # TRUE : 있음 / FALSE : 없음
 
 # table 추가하기 _ table 수정이 가능하니 사용에 주의할 것
-dbWriteTable(con, "table이름", value = table_data, append = TRUE, row.names = FALSE) # overwrite = TRUE\n')
+dbWriteTable(con, "table이름", value = table_data, append = TRUE, row.names = FALSE) # overwrite = TRUE
+
+# 서버의 DB 및 컬럼구성을 알고 싶으시면 "dbDescription()"을 입력하세요.\n')
 }
 
 cat('db 관련 도움말이 필요하시면 "db_help()"" 를 입력하세요.\n')

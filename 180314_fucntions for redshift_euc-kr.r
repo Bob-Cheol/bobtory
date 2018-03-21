@@ -1,4 +1,4 @@
-list_packages = c('RPostgreSQL', 'data.table', 'stringr', 'bit64')
+list_packages = c('RPostgreSQL', 'data.table', 'stringr', 'bit64', 'aws.s3')
 for(i in list_packages) {
     if(!length(which(installed.packages()[,1] == i))) {
         install.packages(i)

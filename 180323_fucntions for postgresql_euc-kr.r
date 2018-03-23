@@ -10,11 +10,9 @@ options(scipen=999)	# 숫자표기 길이 제한 해제
 # create a connection
 # save the password that we can "hide" it as best as we can by collapsing it
 
-# loads the  driver
-drv = dbDriver("PostgreSQL")
 # creates a connection to the postgres database
 # note that "con" will be used later in each connection to the database
-con = dbConnect(drv, dbname = "spwkdw", host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
+dbCon = dbConnect(dbDriver("PostgreSQL"), dbname = "spwkdw", host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
 
 dbGetTable = function(text) {
     data = dbGetQuery(con, text)
@@ -23,15 +21,16 @@ dbGetTable = function(text) {
 }
 
 dbChange = function(text) {
-    con = dbConnect(drv, dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
+    dbCon = dbConnect(dbDriver("PostgreSQL"), dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
+    return(dbCon)
 }
 
 dbList = function() {
-    dbGetQuery(con, "SELECT datname FROM pg_database WHERE datistemplate = false")
+    dbGetQuery(dbCon, "SELECT datname FROM pg_database WHERE datistemplate = false")
 }
 
 dbTableList = function() {
-    dbGetQuery(con, "SELECT table_catalog, table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_schema,table_name")
+    dbGetQuery(dbCon, "SELECT table_catalog, table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_schema,table_name")
 }
 
 dbDescription = function() {
@@ -42,6 +41,9 @@ db_help = function() {
     cat('# DB List 확인하기
 dbList()
 
+# 활성 DB 바꾸기 _ 불편...
+dbCon = dbChange("[DB name]")
+
 # Table List 확인하기
 dbTableList()
 
@@ -49,10 +51,10 @@ dbTableList()
 dbGetTable("[Qeury 문]")
 
 # SQL문 실행법 예시
-dbGetQuery(con, "[Qeury 문]")
+dbGetQuery(dbCon, "[Qeury 문]")
 
 # table 추가하기 _ table 수정이 가능하니 사용에 주의할 것
-dbWriteTable(con, "table이름", value = table_data, append = TRUE, row.names = FALSE) # overwrite = TRUE
+dbWriteTable(dbCon, "table이름", value = table_data, append = TRUE, row.names = FALSE) # overwrite = TRUE
 
 # 서버의 DB 및 컬럼구성을 알고 싶으시면 "dbDescription()"을 입력하세요.\n')
 }

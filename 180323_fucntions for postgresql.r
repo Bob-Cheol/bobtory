@@ -14,7 +14,7 @@ options(scipen=999)	# 숫자표기 길이 제한 해제
 drv = dbDriver("PostgreSQL")
 # creates a connection to the postgres database
 # note that "con" will be used later in each connection to the database
-con = dbConnect(drv, dbname = "spwkdw", host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5439, user = "root", password = Sys.getenv('AWS_PGS_PW'))
+con = dbConnect(drv, dbname = "spwkdw", host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
 
 dbGetTable = function(text) {
     data = dbGetQuery(con, text)
@@ -57,4 +57,4 @@ dbWriteTable(con, "table이름", value = table_data, append = TRUE, row.names = 
 # 서버의 DB 및 컬럼구성을 알고 싶으시면 "dbDescription()"을 입력하세요.\n')
 }
 
-cat('db 관련 도움말이 필요하시면 "db_help()"" 를 입력하세요.\n')
+cat('db 관련 도움말이 필요하시면 "db_help()" 를 입력하세요.\n')

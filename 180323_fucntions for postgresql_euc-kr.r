@@ -15,7 +15,7 @@ options(scipen=999)	# 숫자표기 길이 제한 해제
 dbCon = dbConnect(dbDriver("PostgreSQL"), dbname = "spwkdw", host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
 
 dbGetTable = function(text) {
-    data = dbGetQuery(con, text)
+    data = dbGetQuery(dbCon, text)
     for(i in 1:ncol(data)) { data[,i] = iconv(data[,i], 'UTF-8', 'EUC-KR') }
     return(data)
 }

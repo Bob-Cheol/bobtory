@@ -23,7 +23,7 @@ dbGetTable = function(text) {
 }
 
 dbChange = function(text) {
-    con = dbConnect(drv, dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5439, user = "root", password = Sys.getenv('AWS_PGS_PW'))
+    con = dbConnect(drv, dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
 }
 
 dbList = function() {

@@ -1,11 +1,11 @@
-list_packages = c('RPostgreSQL', 'data.table', 'foreign', 'stringr', 'bit64', 'lubridate')	# »ç¿ëÇÒ packages list
+list_packages = c('RPostgreSQL', 'data.table', 'foreign', 'stringr', 'bit64', 'lubridate')	# ï¿½ï¿½ï¿½ï¿½ï¿½ packages list
 for(i in list_packages) {
     if(!length(which(installed.packages()[,1] == i))) {
         install.packages(i)
     }
     eval(parse(text=paste0("library(", i, ")")))
 }
-options(scipen=999)	# ¼ýÀÚÇ¥±â ±æÀÌ Á¦ÇÑ ÇØÁ¦
+options(scipen=999)	# ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 # create a connection
 # save the password that we can "hide" it as best as we can by collapsing it
@@ -23,7 +23,7 @@ dbGetTable = function(text) {
 }
 
 dbChange = function(text) {
-    con = dbConnect(drv, dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5439, user = "root", password = Sys.getenv('AWS_PGS_PW'))
+    con = dbConnect(drv, dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
 }
 
 dbList = function() {
@@ -39,22 +39,22 @@ dbDescription = function() {
 }
 
 db_help = function() {
-    cat('# DB List È®ÀÎÇÏ±â
+    cat('# DB List È®ï¿½ï¿½ï¿½Ï±ï¿½
 dbList()
 
-# Table List È®ÀÎÇÏ±â
+# Table List È®ï¿½ï¿½ï¿½Ï±ï¿½
 dbTableList()
 
-# EUC-KR·Î ÀÎÄÚµùÇØ¼­ ¹Þ±â
-dbGetTable("[Qeury ¹®]")
+# EUC-KRï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ï¿½Ø¼ï¿½ ï¿½Þ±ï¿½
+dbGetTable("[Qeury ï¿½ï¿½]")
 
-# SQL¹® ½ÇÇà¹ý ¿¹½Ã
-dbGetQuery(con, "[Qeury ¹®]")
+# SQLï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+dbGetQuery(con, "[Qeury ï¿½ï¿½]")
 
-# table Ãß°¡ÇÏ±â _ table ¼öÁ¤ÀÌ °¡´ÉÇÏ´Ï »ç¿ë¿¡ ÁÖÀÇÇÒ °Í
-dbWriteTable(con, "tableÀÌ¸§", value = table_data, append = TRUE, row.names = FALSE) # overwrite = TRUE
+# table ï¿½ß°ï¿½ï¿½Ï±ï¿½ _ table ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ë¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+dbWriteTable(con, "tableï¿½Ì¸ï¿½", value = table_data, append = TRUE, row.names = FALSE) # overwrite = TRUE
 
-# ¼­¹öÀÇ DB ¹× ÄÃ·³±¸¼ºÀ» ¾Ë°í ½ÍÀ¸½Ã¸é "dbDescription()"À» ÀÔ·ÂÇÏ¼¼¿ä.\n')
+# ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DB ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½ "dbDescription()"ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.\n')
 }
 
-cat('db °ü·Ã µµ¿ò¸»ÀÌ ÇÊ¿äÇÏ½Ã¸é "db_help()"" ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.\n')
+cat('db ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ï½Ã¸ï¿½ "db_help()"" ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.\n')

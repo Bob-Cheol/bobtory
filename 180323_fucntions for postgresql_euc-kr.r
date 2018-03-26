@@ -1,4 +1,4 @@
-list_packages = c('RPostgreSQL', 'data.table', 'foreign', 'stringr', 'bit64', 'lubridate')	# 사용할 packages list
+list_packages = c('RPostgreSQL', 'data.table', 'foreign', 'stringr', 'bit64', 'lubridate', 'foreach', 'dplyr')	# 사용할 packages list
 for(i in list_packages) {
     if(!length(which(installed.packages()[,1] == i))) {
         install.packages(i)
@@ -21,6 +21,7 @@ dbGetTable = function(text) {
 }
 
 dbChange = function(text) {
+    dbDisconnect(dbCon)
     dbCon = dbConnect(dbDriver("PostgreSQL"), dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
     return(dbCon)
 }

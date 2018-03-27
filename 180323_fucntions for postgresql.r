@@ -25,14 +25,14 @@ dbChange = function(text) {
     for(i in 1:10) {
         tryCatch({
             dbCon = dbConnect(dbDriver("PostgreSQL"), dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
-            cat(text, '연결')
+            cat(text, '연결\n')
             return(dbCon)
             },
             error = function(e) cat('error(', i, ')'),
             warning = function(w) cat('warning(', i, ')')
         )
     }
-    cat('\n연결실패')
+    cat('\n연결실패\n')
     return(dbCon)
 }
 

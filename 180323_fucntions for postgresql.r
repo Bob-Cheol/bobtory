@@ -22,7 +22,14 @@ dbGetTable = function(text) {
 
 dbChange = function(text) {
     dbDisconnect(dbCon)
-    dbCon = dbConnect(dbDriver("PostgreSQL"), dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
+    for(i in 1:10) {
+        tryCatch({
+            dbCon = dbConnect(dbDriver("PostgreSQL"), dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
+            break
+        }),
+        error = function(e) cat('error(', i, ')')
+        warning = function(w) cat('warning(', i, ')')
+    }
     return(dbCon)
 }
 

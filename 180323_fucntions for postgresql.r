@@ -1,9 +1,9 @@
-list_packages = c('RPostgreSQL', 'data.table', 'foreign', 'stringr', 'bit64', 'lubridate', 'foreach', 'dplyr')	# 사용할 packages list
+list_packages = c('RPostgreSQL', 'data.table', 'foreign', 'stringr', 'bit64', 'lubridate', 'foreach', 'doParallel', 'dplyr')	# 사용할 packages list
 for(i in list_packages) {
-    if(!length(which(installed.packages()[,1] == i))) {
-        install.packages(i)
-    }
-    eval(parse(text=paste0("library(", i, ")")))
+  if(!length(which(installed.packages()[,1] == i))) {
+    install.packages(i)
+  }
+  eval(parse(text=paste0("library(", i, ")")))
 }
 options(scipen=999)	# 숫자표기 길이 제한 해제
 
@@ -15,41 +15,41 @@ options(scipen=999)	# 숫자표기 길이 제한 해제
 dbCon = dbConnect(dbDriver("PostgreSQL"), dbname = "spwkdw", host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
 
 dbGetTable = function(text) {
-    data = dbGetQuery(dbCon, text)
-    for(i in 1:ncol(data)) { data[,i] = iconv(data[,i], 'UTF-8', 'EUC-KR') }
-    return(data)
+  data = dbGetQuery(dbCon, text)
+  for(i in 1:ncol(data)) { data[,i] = iconv(data[,i], 'UTF-8', 'EUC-KR') }
+  return(data)
 }
 
 dbChange = function(text) {
-    dbDisconnect(dbCon)
-    for(i in 1:10) {
-        tryCatch({
-            dbCon = dbConnect(dbDriver("PostgreSQL"), dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
-            cat(text, '연결\n')
-            return(dbCon)
-            },
-            error = function(e) cat('error(', i, ')'),
-            warning = function(w) cat('warning(', i, ')')
-        )
-    }
-    cat('\n연결실패\n')
-    return(dbCon)
+  dbDisconnect(dbCon)
+  for(i in 1:10) {
+    tryCatch({
+      dbCon = dbConnect(dbDriver("PostgreSQL"), dbname = text, host = "spwk-dw.cicvuwhjlhxo.ap-northeast-2.rds.amazonaws.com", port = 5432, user = "root", password = Sys.getenv('AWS_PGS_PW'))
+      cat(text, '연결\n')
+      return(dbCon)
+      },
+      error = function(e) cat('error(', i, ')'),
+      warning = function(w) cat('warning(', i, ')')
+    )
+  }
+  cat('\n연결실패\n')
+  return(dbCon)
 }
 
 dbList = function() {
-    dbGetQuery(dbCon, "SELECT datname FROM pg_database WHERE datistemplate = false")
+  dbGetQuery(dbCon, "SELECT datname FROM pg_database WHERE datistemplate = false")
 }
 
 dbTableList = function() {
-    dbGetQuery(dbCon, "SELECT table_catalog, table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_schema,table_name")
+  dbGetQuery(dbCon, "SELECT table_catalog, table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_schema,table_name")
 }
 
 dbDescription = function() {
-    browseURL('https://docs.google.com/spreadsheets/d/1uztusrcpc8_5nf6icbvERVhkkZNjEkk-LXV49vM3eto/edit#gid=0', browser = getOption('browser'))
+  browseURL('https://docs.google.com/spreadsheets/d/1uztusrcpc8_5nf6icbvERVhkkZNjEkk-LXV49vM3eto/edit#gid=0', browser = getOption('browser'))
 }
 
 db_help = function() {
-    cat('# DB List 확인하기
+  cat('# DB List 확인하기
 dbList()
 
 # 활성 DB 바꾸기 _ 불편...

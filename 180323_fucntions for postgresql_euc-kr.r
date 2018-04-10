@@ -65,7 +65,7 @@ dbGetTable("[Qeury 문]")
 dbGetQuery(dbCon, "[Qeury 문]")
 
 # table 추가하기 _ table 수정이 가능하니 사용에 주의할 것
-dbWriteTable(dbCon, "table이름", value = table_data, append = TRUE, row.names = FALSE) # overwrite = TRUE
+dbWriteTable(dbCon, "table이름", value = table_data, append = FALSE, row.names = FALSE) # overwrite = TRUE
 
 # 서버의 DB 및 컬럼구성을 알고 싶으시면 "dbDescription()"을 입력하세요.\n')
 }

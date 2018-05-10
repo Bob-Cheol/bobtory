@@ -37,7 +37,8 @@ dbChange = function(text) {
 }
 
 dbCurrent = function() {
-  dbGetQuery(dbCon, "select current_database()")
+  currentDB = dbGetQuery(dbCon, "select current_database()")[1,1]
+  cat(paste0('current-DB : ', currentDB, '\n'))
 }
 
 dbList = function() {

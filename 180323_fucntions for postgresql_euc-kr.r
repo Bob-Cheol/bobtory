@@ -53,7 +53,10 @@ dbDescription = function() {
 }
 
 db_help = function() {
-  cat('# DB List 확인하기
+  cat('# 접속중인 DB 확인하기
+dbCurrent()
+
+# DB List 확인하기
 dbList()
 
 # 활성 DB 바꾸기 _ 불편...

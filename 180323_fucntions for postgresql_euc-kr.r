@@ -36,6 +36,10 @@ dbChange = function(text) {
   return(dbCon)
 }
 
+dbCurrent = function() {
+  dbGetQuery(dbCon, "select current_database()")
+}
+
 dbList = function() {
   dbGetQuery(dbCon, "SELECT datname FROM pg_database WHERE datistemplate = false")
 }

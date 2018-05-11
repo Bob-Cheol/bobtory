@@ -1,4 +1,4 @@
-list_packages = c('RPostgreSQL', 'data.table', 'foreign', 'stringr', 'bit64', 'lubridate', 'foreach', 'doParallel', 'dplyr')	# 사용할 packages list
+list_packages = c('RPostgreSQL', 'data.table', 'rlist', 'stringr', 'bit64', 'lubridate', 'foreach', 'dplyr')	# 사용할 packages list
 for(i in list_packages) {
   if(!length(which(installed.packages()[,1] == i))) {
     install.packages(i)

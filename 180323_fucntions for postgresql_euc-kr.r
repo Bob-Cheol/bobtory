@@ -3,7 +3,7 @@ for(i in list_packages) {
   if(!length(which(installed.packages()[,1] == i))) {
     install.packages(i)
   }
-  eval(parse(text=paste0("library(", i, ")")))
+  eval(parse(text=paste0("suppressMessages(library(", i, "))")))
 }
 options(scipen=999)	# 숫자표기 길이 제한 해제
 

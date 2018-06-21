@@ -24,7 +24,7 @@ dbGetTable = function(text, data.table=FALSE) {
 }
 
 dbSetTable = function(database=database_name, table=table_name, data=data, overwrite=FALSE, append=FALSE) {
-  dbCon = dbChange(database)
+  dbCon <<- dbChange(database)
   return(dbWriteTable(dbCon, table, data, row.names=FALSE, overwrite=overwrite, append=append))
 }
 

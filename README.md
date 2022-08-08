@@ -1,2 +1,2 @@
 # bobtory
-bob's factory
+Hello, it is Bob's factory.

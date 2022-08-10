@@ -51,17 +51,18 @@ if __name__ == '__main__':
 
     # ranked_count = int(input().strip())
 
-    # ranked = list(map(int, input().rstrip().split()))
+    # # ranked = list(map(int, input().rstrip().split()))
 
-    # player_count = int(input().strip())
+    # # player_count = int(input().strip())
 
     # player = list(map(int, input().rstrip().split()))
     ranked = []
     player = []
     result = climbingLeaderboard(ranked, player)
     print(result)
+    print(result)
 
-    # fptr.write('\n'.join(map(str, result)))
-    # fptr.write('\n')
+    # # fptr.write('\n'.join(map(str, result)))
+    # # fptr.write('\n')
 
-    # fptr.close()
+    # # fptr.close()

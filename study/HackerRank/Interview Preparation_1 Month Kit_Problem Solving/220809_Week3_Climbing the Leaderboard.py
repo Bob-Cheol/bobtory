@@ -23,6 +23,7 @@ def climbingLeaderboard(ranked, player):
 
     def compareWithMid(first_index,last_index,score):
         mid_index = int((last_index + first_index)/2)
+        print(first_index,last_index,mid_index,ranked[mid_index],score)
         if ranked[mid_index] == score:
             return mid_index
         elif ranked[mid_index] < score:
@@ -36,7 +37,7 @@ def climbingLeaderboard(ranked, player):
                 return mid_index+1
             elif mid_index+1 == last_index and ranked[last_index] > score:
                 return last_index+1
-            return compareWithMid(mid_index,last_index,score)
+            return compareWithMid(mid_index+1,last_index,score)
 
     result_list = list()
     for score in player:
@@ -49,17 +50,18 @@ def climbingLeaderboard(ranked, player):
 if __name__ == '__main__':
     # fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
-    # ranked_count = int(input().strip())
+    # input_txt = open('study/HackerRank/Interview Preparation_1 Month Kit_Problem Solving/test_case/Climbing the Leaderboard-2.txt','r')
+    input_txt = open('./test_case/Climbing the Leaderboard-2.txt','r')
 
-    # # ranked = list(map(int, input().rstrip().split()))
+    ranked_count = int(input_txt.readline().strip(' '))
 
-    # # player_count = int(input().strip())
+    ranked = list(map(int, input_txt.readline().rstrip().split(' ')))
 
-    # player = list(map(int, input().rstrip().split()))
-    ranked = []
-    player = []
+    player_count = int(input_txt.readline().strip(' '))
+
+    player = list(map(int, input_txt.readline().rstrip().split(' ')))
+
     result = climbingLeaderboard(ranked, player)
-    print(result)
     print(result)
 
     # # fptr.write('\n'.join(map(str, result)))

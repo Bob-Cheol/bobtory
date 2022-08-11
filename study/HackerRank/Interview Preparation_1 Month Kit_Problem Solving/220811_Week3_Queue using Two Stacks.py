@@ -31,7 +31,7 @@ class SinglyLinkedList():
     fptr.write(self.head.data)
 
 if __name__ == '__main__':
-  # fptr = open(os.environ('OUTPUT_PATH'), 'w')
+  # fptr = open('result.txt', 'w')
   input_txt = open('test_case/Queue using Two Stacks-0.txt', 'r')
 
   q = int(input_txt.readline().strip())

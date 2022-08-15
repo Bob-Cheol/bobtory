@@ -17,67 +17,81 @@ import sys
 
 def bigSorting(unsorted):
     # Write your code here
-    class DoublyLinkedListNode():
-        def __init__(self, data):
-            self.digit = len(data)
-            self.data = data
-            self.prev = None
-            self.next = None
+    # class DoublyLinkedListNode():
+    #     def __init__(self, data):
+    #         self.digit = len(data)
+    #         self.data = data
+    #         self.prev = None
+    #         self.next = None
 
-    class DoublyLinkedList():
-        def __init__(self):
-            self.head = None
-            self.tail = None
+    # class DoublyLinkedList():
+    #     def __init__(self):
+    #         self.head = None
+    #         self.tail = None
 
-        def insert_node(self, data):
-            node = DoublyLinkedListNode(data)
+    #     def insert_node(self, data):
+    #         node = DoublyLinkedListNode(data)
 
-            if not self.head:
-                self.head = node
-            else:
-                self.tail.next = node
-                node.prev = self.tail
+    #         if not self.head:
+    #             self.head = node
+    #         else:
+    #             self.tail.next = node
+    #             node.prev = self.tail
 
-            self.tail = node
+    #         self.tail = node
 
-        def sort_node(self, node_1, node_2):
-            if (node_1.digit < node_2.digit) or (node_1.digit == node_2.digit and node_1.data < node_2.data):
-                if node_2.prev:
-                    node_2.prev.next = node_1
-                if node_1.next:
-                    node_1.next.prev = node_2
-                node_1.prev = node_2.prev
-                node_2.prev = node_1
-                node_2.next = node_1.next
-                node_1.next = node_2
-                if node_1 == self.tail:
-                    self.tail = node_2
-                if node_2 == self.head:
-                    self.head = node_1
-                    return False
-                return True
-            else:
-                return False
+    #     def sort_node(self, node_1, node_2):
+    #         if (node_1.digit < node_2.digit) or (node_1.digit == node_2.digit and node_1.data < node_2.data):
+    #             if node_2.prev:
+    #                 node_2.prev.next = node_1
+    #             if node_1.next:
+    #                 node_1.next.prev = node_2
+    #             node_1.prev = node_2.prev
+    #             node_2.prev = node_1
+    #             node_2.next = node_1.next
+    #             node_1.next = node_2
+    #             if node_1 == self.tail:
+    #                 self.tail = node_2
+    #             if node_2 == self.head:
+    #                 self.head = node_1
+    #                 return False
+    #             return True
+    #         else:
+    #             return False
 
-    linked_list = DoublyLinkedList()
-    for value in unsorted:
-        linked_list.insert_node(value)
-        if linked_list.head != linked_list.tail:
-            new_node = linked_list.tail
-            while True:
-                if not linked_list.sort_node(new_node, new_node.prev):
-                    break
+    # linked_list = DoublyLinkedList()
+    # for value in unsorted:
+    #     linked_list.insert_node(value)
+    #     if linked_list.head != linked_list.tail:
+    #         new_node = linked_list.tail
+    #         while True:
+    #             if not linked_list.sort_node(new_node, new_node.prev):
+    #                 break
 
-    sorted_list = []
-    node = linked_list.head
-    while node:
-        sorted_list.append(node.data)
-        node = node.next
-    return sorted_list
+    # sorted_list = []
+    # node = linked_list.head
+    # while node:
+    #     sorted_list.append(node.data)
+    #     node = node.next
+    # return sorted_list
+    unsorted = sorted(unsorted, key = lambda length: len(length))
+    i = 0
+    while True:
+        if len(unsorted[i]) == len(unsorted[i+1]) and unsorted[i] > unsorted[i+1]:
+            big_value = unsorted[i]
+            unsorted[i] = unsorted[i+1]
+            unsorted[i+1] = big_value
+            i = i-1 if i >= 1 else i
+        else:
+            i += 1
+        if i == len(unsorted)-1:
+            break
+
+    return unsorted
 
 if __name__ == '__main__':
     # fptr = open(os.environ['OUTPUT_PATH'], 'w')
-    input_txt = open('test_case/Big Sorting-0.txt', 'r')
+    input_txt = open('test_case/Big Sorting-3.txt', 'r')
 
     n = int(input_txt.readline().strip())
 

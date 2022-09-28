@@ -1,6 +1,7 @@
 create table building_dong (
   pnu varchar(19),
   building_pk varchar(33),
+  road_address_pk varchar(26),
   register_type varchar(2),
   address varchar,
   road_address varchar,
@@ -32,3 +33,4 @@ create table building_dong (
   uploaded_at timestamp default current_timestamp
 );
 create index index_building_dong_on_pnu on building_dong (pnu);
+create index index_building_dong_on_road_address_pk on building_dong (road_address_pk);
